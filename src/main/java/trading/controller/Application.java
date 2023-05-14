@@ -1,41 +1,40 @@
 package trading.controller;
 
+import java.util.Map;
+
+
 
 /**
- * The class provides actual implementation for handling signal
+ *The class provides actual implementation for handling signal
  */
 public class Application implements SignalHandler {
+		
+	private static Map<Integer, Runnable> signalMap;
+	private static int signalCapacity;
+	Signal signal = new Signal();
 
 	/**
-	 * This method receives signal and processes according to requested signal
-	 * number
-	 * 
-	 * @param signal the signal number
+	 * A constructor that initializes signal configuration from Signal class 
+	 */
+	public Application() {		
+		signalMap = signal.getSignalMap();
+		signalCapacity = signal.getSignalCapacity();
+	}
+
+	/**
+	 *This method receives signal and processes according to requested signal number
+	 *@param signal the signal number
 	 */
 	public void handleSignal(int signal) {
-		Algo algo = new Algo();
-		switch (signal) {
-		case 1:
-			algo.setUp();
-			algo.setAlgoParam(1, 60);
-			algo.performCalc();
-			algo.submitToMarket();
-			break;
-		case 2:
-			algo.reverse();
-			algo.setAlgoParam(1, 80);
-			algo.submitToMarket();
-			break;
-		case 3:
-			algo.setAlgoParam(1, 90);
-			algo.setAlgoParam(2, 15);
-			algo.performCalc();
-			algo.submitToMarket();
-			break;
-		default:
-			algo.cancelTrades();
-			break;
+		
+		if (signal > 0 && signal <= signalCapacity) {
+			signalMap.get(signal).run();
+			signalMap.get(signalCapacity + 2).run();
+		} else {
+			signalMap.get(signalCapacity + 1).run();
+			signalMap.get(signalCapacity + 2).run();
 		}
-		algo.doAlgo();
+		
+		
 	}
 }
