@@ -9,6 +9,7 @@ The fully fledged server uses the following:
 
 * Spring Framework
 * SpringBoot
+* jUnit
 
 ## Dependencies
 The library Algo is used for responding signal.
@@ -16,9 +17,25 @@ The library Algo is used for responding signal.
 ## Building the project
 You will need:
 
-*	Java JDK 17
+*	Java:JDK 17
 *	Maven 4.0 or higher
 *	Git
+
+
+## Launch
+* The project can be booted by spring with entry point class TradingApplication.java
+  This class will launch the application using embedded tomcat server.
+* The test case SignalControllerTests can be executed using jUnit for all the test cases.
+
+## Example
+The developed API can be called with URL localhost:8080/processSignal?signal=x
+PS: You can configure different host and port in project. x stands for signal number.
+
+## Project status
+The current project state involves capability to respond till 3 signal.
+Later, That can be expanded using Signal.java configuration class. 
+The project has also capacity to add views and relative basic dependency is already part of project. 
+
 
 ### Reference Documentation
 For further reference, please consider the following sections:
